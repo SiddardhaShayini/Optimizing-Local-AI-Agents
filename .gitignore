@@ -1,0 +1,23 @@
+# C++ Binaries & Libraries
+*.exe
+*.dll
+
+# AI Models
+*.gguf
+*.bin
+
+# Python Cache & Build
+__pycache__/
+*.pyc
+*.pyo
+build/
+dist/
+*.egg-info/
+
+# Local Vector Databases
+local_agent_memory/
+.lancedb/
+
+# Media & Documents
+*.png
+*.pdf
