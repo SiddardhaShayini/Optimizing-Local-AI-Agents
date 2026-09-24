@@ -48,7 +48,14 @@ cd Optimizing-Local-AI-Agents
 pip install -e .
 ```
 
-### 3. Usage Example
+### 3. Setup Wizard (Recommended)
+To ensure your edge environment has the correct C++ binaries and model files, run the included diagnostic dashboard:
+
+```bash
+pip install streamlit
+streamlit run fast_agent_wizard.py
+
+### 4. Usage Example
 
 ```python
 from fast_agent import FastAgent
@@ -63,6 +70,10 @@ def multiply(a: int, b: int) -> int:
 response = agent.ask("Multiply 36 by 12 and return the final answer.")
 print(response)
 ```
+
+## Contributing
+
+We welcome community contributions! Because this framework targets resource-constrained edge devices, all pull requests must maintain the zero-overhead philosophy. Please review our [Contributing Guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md) before submitting code.
 
 ## License
 
