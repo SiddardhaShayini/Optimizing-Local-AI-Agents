@@ -1,64 +1,92 @@
 import os
-import shutil
+import psutil
 import streamlit as st
+from fast_agent import find_llama_server
 
-st.set_page_config(page_title="FastAgent Setup Wizard", layout="centered")
+st.set_page_config(page_title="FastAgent Setup Wizard", page_icon="⚡", layout="centered")
 
-st.title("⚡ FastAgent Setup Wizard")
-st.markdown("This diagnostic tool ensures your edge environment is ready to run the `FastAgent` inference orchestrator.")
+st.title("⚡ FastAgent Edge Setup Wizard")
+st.markdown(
+    "Diagnostic dashboard to verify hardware readiness, C++ engine binaries, and quantized GGUF models for edge AI agents."
+)
 
-def find_llama_server():
-    local_bin = os.path.abspath("llama-server.exe")
-    if os.path.exists(local_bin):
-        return local_bin
-    system_bin = shutil.which("llama-server") or shutil.which("llama-server.exe")
-    return system_bin
+# Hardware Diagnostics
+st.header("1. Hardware & System Resources")
+col1, col2 = st.columns(2)
+mem = psutil.virtual_memory()
+total_ram_gb = round(mem.total / (1024**3), 2)
+available_ram_gb = round(mem.available / (1024**3), 2)
+cpu_cores = os.cpu_count() or 1
 
-def find_gguf_models():
-    return [f for f in os.listdir('.') if f.endswith('.gguf')]
+with col1:
+    st.metric("Total System RAM", f"{total_ram_gb} GB")
+    st.metric("Available RAM", f"{available_ram_gb} GB")
 
-st.header("1. Core Engine Check")
-server_path = find_llama_server()
+with col2:
+    st.metric("CPU Logical Cores", f"{cpu_cores}")
+    if total_ram_gb <= 8.5:
+        st.info("💡 Target Profile: **Constrained Edge Device (8GB RAM)**")
+    else:
+        st.success("✅ Ample RAM for 8-bit quantized inference")
 
-if server_path:
-    st.success(f"✅ Found `llama-server` executable at: `{server_path}`")
-else:
+# Binary Discovery
+st.header("2. Core Engine Binary Check")
+try:
+    server_path = find_llama_server()
+    st.success(f"✅ Found `llama-server` binary at: `{server_path}`")
+except FileNotFoundError:
+    server_path = None
     st.error("❌ `llama-server` executable not found.")
     st.markdown("""
-    **How to fix:**
-    1. Download the latest `llama.cpp` release for your OS.
-    2. Extract the archive.
-    3. Place `llama-server.exe` and its `.dll` files in this directory.
+    **Resolution Steps:**
+    1. Download the latest `llama.cpp` Windows/Linux release archive.
+    2. Extract `llama-server.exe` and its companion DLLs into this directory or add to your system `PATH`.
     """)
 
-st.header("2. Model Check")
+# Model Discovery
+st.header("3. Quantized Model Discovery")
+
+
+def find_gguf_models():
+    models = []
+    # Check current directory and subdirectories
+    for root, _, files in os.walk("."):
+        for f in files:
+            if f.endswith(".gguf"):
+                models.append(os.path.relpath(os.path.join(root, f), "."))
+    return sorted(list(set(models)))
+
+
 models = find_gguf_models()
 
 if models:
-    st.success(f"✅ Found Quantized Models: {', '.join(models)}")
+    st.success(f"✅ Discovered {len(models)} GGUF Model(s): `{', '.join(models)}`")
     selected_model = st.selectbox("Select model for quickstart test:", models)
 else:
-    st.error("❌ No `.gguf` model files found in this directory.")
+    selected_model = None
+    st.error("❌ No `.gguf` model files found.")
     st.markdown("""
-    **How to fix:**
-    Download a highly quantized model suitable for 8GB RAM CPUs. 
-    *Recommended: [Gemma-2B-Q4_K_M (Hugging Face)](https://huggingface.co/)*
+    **Resolution Steps:**
+    Download a quantized GGUF model (e.g. `gemma-2b-q4.gguf` or `Qwen2.5-1.5B-Instruct-Q4_K_M.gguf`).
+    You can run `python download_model.py` to fetch a recommended model automatically.
     """)
 
-st.header("3. Quickstart Verification")
-if server_path and models:
-    st.markdown("Your environment is perfectly configured. Copy this code to launch your first autonomous agent:")
-    code = f"""from fast_agent import FastAgent
+# Quickstart Verification
+st.header("4. Quickstart Verification")
+if server_path and selected_model:
+    st.markdown("Your edge environment is fully configured! Launch your autonomous agent with:")
+    code = f'''from fast_agent import FastAgent
 
-# Boots the C++ backend and loads the KV cache
+# Boots the C++ backend with 8-bit KV quantization & slot caching
 agent = FastAgent(model_path="{selected_model}")
 
 @agent.tool("Adds two numbers together. Pass as (a, b)")
 def add_numbers(a: int, b: int) -> int:
     return a + b
 
-print(agent.ask("What is 144 + 256? Use the tool to find out."))
-"""
+response = agent.ask("What is 144 + 256? Use the tool to find out.")
+print("Final Answer:", response)
+'''
     st.code(code, language="python")
 else:
-    st.warning("⚠️ Please resolve the engine and model dependencies above before running FastAgent.")
+    st.warning("⚠️ Please resolve the engine or model dependencies above before running FastAgent.")

@@ -1,0 +1,197 @@
+[
+  {
+    "run_type": "baseline_ollama_raw",
+    "records": [
+      {
+        "timestamp": "2026-09-22T11:48:06.556794",
+        "category": "Short Query",
+        "prompt": "Explain what an operating system kernel is in two sentences.",
+        "metrics": {
+          "total_time_sec": 5.855,
+          "ttft_sec": 2.36,
+          "prompt_tokens": 33,
+          "prompt_speed_tok_sec": 109.37,
+          "generated_tokens": 72,
+          "eval_speed_tok_sec": 20.61,
+          "avg_cpu_percent": 66.5,
+          "system_ram_used_mb": 12878.3,
+          "ram_delta_mb": -44.3
+        },
+        "response_sample": "Sure, here's a two-sentence explanation of an operating system kernel:\n\n* An operating system kernel is a core component..."
+      },
+      {
+        "timestamp": "2026-09-22T11:48:12.891489",
+        "category": "Reasoning & Math",
+        "prompt": "Solve this step by step: A farmer has 15 sheep, and all but 8 die. How many are left? Then explain why.",
+        "metrics": {
+          "total_time_sec": 5.333,
+          "ttft_sec": 2.569,
+          "prompt_tokens": 52,
+          "prompt_speed_tok_sec": 102.66,
+          "generated_tokens": 54,
+          "eval_speed_tok_sec": 19.55,
+          "avg_cpu_percent": 72.2,
+          "system_ram_used_mb": 12743.0,
+          "ram_delta_mb": -127.1
+        },
+        "response_sample": "Sure, here's the solution:\n\nThere are 15 sheep, and all but 8 die. So, there are 15 - 8 = 7 sheep left.\n\nThis is because..."
+      },
+      {
+        "timestamp": "2026-09-22T11:48:29.194458",
+        "category": "Code / Agent Task",
+        "prompt": "Write a clean Python function using only the standard library that traverses a nested dictionary and extracts all leaf values into a flat list. Include docstring and type hints.",
+        "metrics": {
+          "total_time_sec": 15.301,
+          "ttft_sec": 2.606,
+          "prompt_tokens": 54,
+          "prompt_speed_tok_sec": 96.76,
+          "generated_tokens": 256,
+          "eval_speed_tok_sec": 20.17,
+          "avg_cpu_percent": 69.3,
+          "system_ram_used_mb": 12639.3,
+          "ram_delta_mb": -111.0
+        },
+        "response_sample": "```python\ndef extract_leaf_values(nested_dict):\n    \"\"\"\n    Extracts all leaf values from a nested dictionary.\n\n    Args..."
+      },
+      {
+        "timestamp": "2026-09-22T11:48:37.608557",
+        "category": "Context-Heavy / Summarization",
+        "prompt": "Summarize the following passage into three key takeaways:\nDistributed systems consist of autonomous computing entities that communicate over a network. A core challenge is consensus, where nodes must agree on a single data value or state despite network partitions or failures. Common consensus algorithms include Paxos and Raft. Raft simplifies Paxos by decomposing the consensus problem into leader election, log replication, and safety. While Paxos is mathematically elegant, Raft is specifically designed to be understandable and implementable in production software systems.",
+        "metrics": {
+          "total_time_sec": 7.411,
+          "ttft_sec": 3.406,
+          "prompt_tokens": 120,
+          "prompt_speed_tok_sec": 89.88,
+          "generated_tokens": 87,
+          "eval_speed_tok_sec": 21.74,
+          "avg_cpu_percent": 51.9,
+          "system_ram_used_mb": 12651.9,
+          "ram_delta_mb": 21.1
+        },
+        "response_sample": "Sure, here are the key takeaways from the passage:\n\n1. **Distributed systems consist of autonomous computing entities co..."
+      }
+    ]
+  },
+  {
+    "run_type": "framework_ngram_speculative",
+    "records": [
+      {
+        "timestamp": "2026-09-22T12:18:56.641709",
+        "category": "Short Query",
+        "prompt": "Explain what an operating system kernel is in two sentences.",
+        "metrics": {
+          "total_time_sec": 5.995,
+          "ttft_sec": 2.246,
+          "generated_tokens": 66,
+          "eval_speed_tok_sec": 17.34,
+          "avg_cpu_percent": 68.9,
+          "system_ram_used_mb": 14637.7,
+          "ram_delta_mb": -90.3
+        }
+      },
+      {
+        "timestamp": "2026-09-22T12:19:12.817664",
+        "category": "Reasoning & Math",
+        "prompt": "Solve this step by step: A farmer has 15 sheep, and all but 8 die. How many are left? Then explain why.",
+        "metrics": {
+          "total_time_sec": 15.172,
+          "ttft_sec": 2.559,
+          "generated_tokens": 214,
+          "eval_speed_tok_sec": 16.89,
+          "avg_cpu_percent": 71.0,
+          "system_ram_used_mb": 14310.0,
+          "ram_delta_mb": -338.1
+        }
+      },
+      {
+        "timestamp": "2026-09-22T12:19:31.884173",
+        "category": "Code / Agent Task",
+        "prompt": "Write a clean Python function using only the standard library that traverses a nested dictionary and extracts all leaf values into a flat list. Include docstring and type hints.",
+        "metrics": {
+          "total_time_sec": 18.065,
+          "ttft_sec": 2.582,
+          "generated_tokens": 256,
+          "eval_speed_tok_sec": 16.47,
+          "avg_cpu_percent": 77.1,
+          "system_ram_used_mb": 14444.7,
+          "ram_delta_mb": 122.7
+        }
+      },
+      {
+        "timestamp": "2026-09-22T12:19:46.810709",
+        "category": "Context-Heavy / Summarization",
+        "prompt": "Summarize the following passage into three key takeaways:\nDistributed systems consist of autonomous computing entities that communicate over a network. A core challenge is consensus, where nodes must agree on a single data value or state despite network partitions or failures. Common consensus algorithms include Paxos and Raft. Raft simplifies Paxos by decomposing the consensus problem into leader election, log replication, and safety. While Paxos is mathematically elegant, Raft is specifically designed to be understandable and implementable in production software systems.",
+        "metrics": {
+          "total_time_sec": 13.925,
+          "ttft_sec": 3.709,
+          "generated_tokens": 142,
+          "eval_speed_tok_sec": 13.81,
+          "avg_cpu_percent": 74.7,
+          "system_ram_used_mb": 14259.5,
+          "ram_delta_mb": -178.4
+        }
+      }
+    ]
+  },
+  {
+    "run_type": "framework_ngram_speculative",
+    "records": [
+      {
+        "timestamp": "2026-09-22T12:24:39.164879",
+        "category": "Short Query",
+        "prompt": "Explain what an operating system kernel is in two sentences.",
+        "metrics": {
+          "total_time_sec": 5.042,
+          "ttft_sec": 2.231,
+          "generated_tokens": 52,
+          "eval_speed_tok_sec": 18.15,
+          "avg_cpu_percent": 67.8,
+          "system_ram_used_mb": 13680.7,
+          "ram_delta_mb": -20.8
+        }
+      },
+      {
+        "timestamp": "2026-09-22T12:24:55.761948",
+        "category": "Reasoning & Math",
+        "prompt": "Solve this step by step: A farmer has 15 sheep, and all but 8 die. How many are left? Then explain why.",
+        "metrics": {
+          "total_time_sec": 15.597,
+          "ttft_sec": 2.515,
+          "generated_tokens": 232,
+          "eval_speed_tok_sec": 17.66,
+          "avg_cpu_percent": 68.6,
+          "system_ram_used_mb": 13593.6,
+          "ram_delta_mb": -115.2
+        }
+      },
+      {
+        "timestamp": "2026-09-22T12:25:14.034233",
+        "category": "Code / Agent Task",
+        "prompt": "Write a clean Python function using only the standard library that traverses a nested dictionary and extracts all leaf values into a flat list. Include docstring and type hints.",
+        "metrics": {
+          "total_time_sec": 17.281,
+          "ttft_sec": 2.588,
+          "generated_tokens": 256,
+          "eval_speed_tok_sec": 17.36,
+          "avg_cpu_percent": 68.8,
+          "system_ram_used_mb": 13597.9,
+          "ram_delta_mb": 3.1
+        }
+      },
+      {
+        "timestamp": "2026-09-22T12:25:30.774003",
+        "category": "Context-Heavy / Summarization",
+        "prompt": "Summarize the following passage into three key takeaways:\nDistributed systems consist of autonomous computing entities that communicate over a network. A core challenge is consensus, where nodes must agree on a single data value or state despite network partitions or failures. Common consensus algorithms include Paxos and Raft. Raft simplifies Paxos by decomposing the consensus problem into leader election, log replication, and safety. While Paxos is mathematically elegant, Raft is specifically designed to be understandable and implementable in production software systems.",
+        "metrics": {
+          "total_time_sec": 15.725,
+          "ttft_sec": 3.801,
+          "generated_tokens": 204,
+          "eval_speed_tok_sec": 17.03,
+          "avg_cpu_percent": 69.8,
+          "system_ram_used_mb": 13620.3,
+          "ram_delta_mb": 23.2
+        }
+      }
+    ]
+  }
+]
